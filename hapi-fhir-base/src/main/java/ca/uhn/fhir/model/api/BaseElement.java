@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class BaseElement implements /*IElement, */ ISupportsUndeclaredExtensions {
+public abstract class BaseElement implements /*IElement, */ ISupportsUndeclaredExtensions, Cloneable {
 
 	private static final long serialVersionUID = -3092659584634499332L;
 	private List<String> myFormatCommentsPost;
@@ -180,6 +180,31 @@ public abstract class BaseElement implements /*IElement, */ ISupportsUndeclaredE
 			userData = new HashMap<>();
 		}
 		userData.put(name, value);
+	}
+
+	@Override
+	protected BaseElement clone() throws CloneNotSupportedException {
+		BaseElement clone = (BaseElement) super.clone();
+		if (userData != null) {
+			for (Map.Entry<String, Object> entry : userData.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue(); // TODO: should explicitly clone the value Object
+				clone.setUserData(key, value);
+			}
+		}
+		if (myFormatCommentsPost != null) {
+			for (String p : myFormatCommentsPost) clone.getFormatCommentsPost().add(p);
+		}
+		if (myFormatCommentsPre != null) {
+			for (String p : myFormatCommentsPre) clone.getFormatCommentsPre().add(p);
+		}
+		if (myUndeclaredExtensions != null) {
+			for (ExtensionDt e : myUndeclaredExtensions) clone.getUndeclaredExtensions().add(e.clone());
+		}
+		if (myUndeclaredModifierExtensions != null) {
+			for (ExtensionDt e : myUndeclaredModifierExtensions) clone.getUndeclaredModifierExtensions().add(e);
+		}
+		return clone;
 	}
 
 	/**

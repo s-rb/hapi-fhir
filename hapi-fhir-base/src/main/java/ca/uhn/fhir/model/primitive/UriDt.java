@@ -28,7 +28,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @DatatypeDef(name = "uri")
-public class UriDt extends BasePrimitive<String> {
+public class UriDt extends BasePrimitive<String> implements Cloneable {
 
 	private static final org.slf4j.Logger ourLog = org.slf4j.LoggerFactory.getLogger(UriDt.class);
 
@@ -129,5 +129,11 @@ public class UriDt extends BasePrimitive<String> {
 			return new UriDt();
 		}
 		return new UriDt("urn:oid:" + theOid);
+	}
+
+	@Override
+	public UriDt clone() throws CloneNotSupportedException {
+		UriDt clone = (UriDt) super.clone();
+		return clone;
 	}
 }

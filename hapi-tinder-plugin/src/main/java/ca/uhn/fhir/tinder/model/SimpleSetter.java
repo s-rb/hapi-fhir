@@ -3,7 +3,7 @@ package ca.uhn.fhir.tinder.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleSetter {
+public class SimpleSetter implements Cloneable {
 
 	private String myDatatype;
 	private List<Parameter> myParameters = new ArrayList<Parameter>();
@@ -29,6 +29,18 @@ public class SimpleSetter {
 		mySuffix = theSuffix;
 	}
 
+	@Override
+	public SimpleSetter clone() throws CloneNotSupportedException {
+		SimpleSetter clone = (SimpleSetter) super.clone();
+		clone.myDatatype = myDatatype;
+		clone.mySuffix = mySuffix;
+		clone.myParameters = new ArrayList<>();
+		for (Parameter p : myParameters) {
+			clone.myParameters.add(p.clone());
+		}
+		return clone;
+	}
+
 	public static class Parameter {
 
 		private String myDatatype;
@@ -48,6 +60,14 @@ public class SimpleSetter {
 
 		public void setParameter(String theParameter) {
 			myParameter = theParameter;
+		}
+
+		@Override
+		public Parameter clone() throws CloneNotSupportedException {
+			Parameter clone = (Parameter) super.clone();
+			clone.myDatatype = this.myDatatype;
+			clone.myParameter = this.myParameter;
+			return clone;
 		}
 	}
 }

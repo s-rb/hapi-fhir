@@ -28,7 +28,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 @DatatypeDef(name = "code", isSpecialization = true)
-public class BoundCodeDt<T extends Enum<?>> extends CodeDt {
+public class BoundCodeDt<T extends Enum<?>> extends CodeDt implements Cloneable {
 
 	private IValueSetEnumBinder<T> myBinder;
 
@@ -86,5 +86,12 @@ public class BoundCodeDt<T extends Enum<?>> extends CodeDt {
 	public void writeExternal(ObjectOutput theOut) throws IOException {
 		super.writeExternal(theOut);
 		theOut.writeObject(myBinder);
+	}
+
+	@Override
+	public BoundCodeDt clone() {
+		BoundCodeDt clone = (BoundCodeDt) super.clone();
+		clone.myBinder = myBinder.clone();
+		return clone;
 	}
 }

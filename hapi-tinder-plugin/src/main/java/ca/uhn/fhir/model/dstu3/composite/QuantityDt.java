@@ -32,7 +32,7 @@ import java.util.List;
  * </p>
  */
 @DatatypeDef(name = "QuantityDt")
-public class QuantityDt extends BaseQuantityDt implements ICompositeDatatype {
+public class QuantityDt extends BaseQuantityDt implements ICompositeDatatype, Cloneable {
 
 	/**
 	 * Constructor
@@ -493,5 +493,16 @@ public class QuantityDt extends BaseQuantityDt implements ICompositeDatatype {
 	public QuantityDt setCode(String theCode) {
 		myCode = new CodeDt(theCode);
 		return this;
+	}
+
+	@Override
+	public QuantityDt clone() throws CloneNotSupportedException {
+		QuantityDt clone = (QuantityDt) super.clone();
+		clone.myCode = myCode.clone();
+		clone.myComparator = myComparator.clone();
+		clone.mySystem = mySystem.clone();
+		clone.myUnit = myUnit.clone();
+		clone.myValue = myValue.clone();
+		return clone;
 	}
 }

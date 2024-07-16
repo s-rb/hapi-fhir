@@ -29,7 +29,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 @DatatypeDef(name = "decimal")
-public class DecimalDt extends BasePrimitive<BigDecimal> implements Comparable<DecimalDt>, IBaseDecimalDatatype {
+public class DecimalDt extends BasePrimitive<BigDecimal> implements Comparable<DecimalDt>, IBaseDecimalDatatype, Cloneable {
 
 	/**
 	 * Constructor
@@ -136,5 +136,10 @@ public class DecimalDt extends BasePrimitive<BigDecimal> implements Comparable<D
 	 */
 	public void setValueAsInteger(int theValue) {
 		setValue(new BigDecimal(theValue));
+	}
+
+	@Override
+	public DecimalDt clone() throws CloneNotSupportedException {
+		return (DecimalDt) super.clone();
 	}
 }

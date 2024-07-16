@@ -30,7 +30,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 public abstract class BasePrimitive<T> extends BaseIdentifiableElement
-		implements IPrimitiveDatatype<T>, Externalizable {
+		implements IPrimitiveDatatype<T>, Externalizable, Cloneable {
 
 	private T myCoercedValue;
 	private String myStringValue;
@@ -135,5 +135,13 @@ public abstract class BasePrimitive<T> extends BaseIdentifiableElement
 	@Override
 	public boolean hasValue() {
 		return !StringUtils.isBlank(getValueAsString());
+	}
+
+	@Override
+	public BasePrimitive clone() throws CloneNotSupportedException {
+		BasePrimitive clone = (BasePrimitive) super.clone();
+		clone.myCoercedValue = myCoercedValue.clone();
+		clone.myStringValue = myStringValue;
+		return clone;
 	}
 }

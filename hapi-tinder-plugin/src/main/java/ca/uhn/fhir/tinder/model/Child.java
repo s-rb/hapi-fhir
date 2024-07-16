@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Child extends BaseElement {
+public abstract class Child extends BaseElement implements Cloneable {
 
 	private List<SimpleSetter> mySimpleStters = new ArrayList<SimpleSetter>();
 
@@ -229,5 +229,17 @@ public abstract class Child extends BaseElement {
 
 	public boolean isSingleChildInstantiable() {
 		return true;
+	}
+
+	@Override
+	public Child clone() throws CloneNotSupportedException {
+		Child clone = (Child) super.clone();
+		List<SimpleSetter> list = new ArrayList<>();
+		for (SimpleSetter o : mySimpleStters) {
+			SimpleSetter cloned = o.clone();
+			list.add(cloned);
+		}
+		clone.mySimpleStters = list;
+		return clone;
 	}
 }

@@ -27,7 +27,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @DatatypeDef(name = "code", profileOf = StringDt.class)
-public class CodeDt extends BasePrimitive<String> implements Comparable<CodeDt> {
+public class CodeDt extends BasePrimitive<String> implements Comparable<CodeDt>, Cloneable {
 
 	/**
 	 * Constructor
@@ -65,5 +65,12 @@ public class CodeDt extends BasePrimitive<String> implements Comparable<CodeDt> 
 	@Override
 	protected String encode(String theValue) {
 		return theValue;
+	}
+
+
+	@Override
+	public CodeDt clone() throws CloneNotSupportedException {
+		CodeDt clone = (CodeDt) super.clone();
+		return clone;
 	}
 }

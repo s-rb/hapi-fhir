@@ -34,7 +34,7 @@ import java.util.List;
 
 @DatatypeDef(name = "Extension")
 public class ExtensionDt extends BaseIdentifiableElement
-		implements ICompositeDatatype, IBaseExtension<ExtensionDt, IDatatype> {
+		implements ICompositeDatatype, IBaseExtension<ExtensionDt, IDatatype>, Cloneable {
 
 	private static final long serialVersionUID = 6399491332783085935L;
 
@@ -169,5 +169,14 @@ public class ExtensionDt extends BaseIdentifiableElement
 		retVal.append("url", getUrl());
 		retVal.append("value", getValue());
 		return retVal.build();
+	}
+
+	@Override
+	public ExtensionDt clone() {
+		ExtensionDt clone = (ExtensionDt) super.clone();
+		clone.myModifier = myModifier;
+		clone.myUrl = myUrl.clone();
+		clone.myValue = myValue.clone();
+		return clone;
 	}
 }

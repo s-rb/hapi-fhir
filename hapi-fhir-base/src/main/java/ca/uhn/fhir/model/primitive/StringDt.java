@@ -29,7 +29,7 @@ import ca.uhn.fhir.rest.param.StringParam;
 import org.apache.commons.lang3.StringUtils;
 
 @DatatypeDef(name = "string")
-public class StringDt extends BasePrimitive<String> implements IQueryParameterType {
+public class StringDt extends BasePrimitive<String> implements IQueryParameterType, Cloneable {
 
 	/**
 	 * Create a new String
@@ -143,5 +143,10 @@ public class StringDt extends BasePrimitive<String> implements IQueryParameterTy
 		throw new UnsupportedOperationException(
 				Msg.code(1874)
 						+ "get/setMissing is not supported in StringDt. Use {@link StringParam} instead if you need this functionality");
+	}
+
+	@Override
+	public StringDt clone() throws CloneNotSupportedException {
+		return (StringDt) super.clone();
 	}
 }

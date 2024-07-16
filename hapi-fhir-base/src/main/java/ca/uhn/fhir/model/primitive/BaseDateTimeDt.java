@@ -37,7 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public abstract class BaseDateTimeDt extends BasePrimitive<Date> {
+public abstract class BaseDateTimeDt extends BasePrimitive<Date> implements Cloneable {
 	static final long NANOS_PER_MILLIS = 1000000L;
 	static final long NANOS_PER_SECOND = 1000000000L;
 
@@ -745,5 +745,15 @@ public abstract class BaseDateTimeDt extends BasePrimitive<Date> {
 			throw new DataFormatException(Msg.code(1885) + "Invalid date/time string (datatype "
 					+ getClass().getSimpleName() + " does not support " + thePrecision + " precision): " + theValue);
 		}
+	}
+
+	@Override
+	public BaseDateTimeDt clone() {
+		BaseDateTimeDt clone = (BaseDateTimeDt) super.clone();
+		clone.myFractionalSeconds = myFractionalSeconds;
+		clone.myPrecision = myPrecision;
+		clone.myTimeZone
+		clone.myTimeZoneZulu
+		return clone;
 	}
 }

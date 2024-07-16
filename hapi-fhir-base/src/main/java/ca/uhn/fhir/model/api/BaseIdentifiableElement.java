@@ -24,7 +24,7 @@ import ca.uhn.fhir.model.primitive.IdDt;
 import ca.uhn.fhir.parser.DataFormatException;
 import ca.uhn.fhir.util.CoverageIgnore;
 
-public abstract class BaseIdentifiableElement extends BaseElement implements IIdentifiableElement {
+public abstract class BaseIdentifiableElement extends BaseElement implements IIdentifiableElement, Cloneable {
 
 	private static final long serialVersionUID = -7816838417076777914L;
 	private String myElementSpecificId;
@@ -103,5 +103,12 @@ public abstract class BaseIdentifiableElement extends BaseElement implements IId
 			throw new UnsupportedOperationException(
 					Msg.code(1900) + "Use IElement#setElementSpecificId(String) to set the element ID for an element");
 		}
+	}
+
+	@Override
+	protected BaseIdentifiableElement clone() throws CloneNotSupportedException {
+		BaseIdentifiableElement clone = (BaseIdentifiableElement) super.clone();
+		clone.setElementSpecificId(myElementSpecificId);
+		return clone;
 	}
 }

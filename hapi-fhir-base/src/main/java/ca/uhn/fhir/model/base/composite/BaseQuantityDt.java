@@ -232,4 +232,9 @@ public abstract class BaseQuantityDt extends BaseIdentifiableElement
 				Msg.code(1904)
 						+ "get/setMissing is not supported in StringDt. Use {@link StringParam} instead if you need this functionality");
 	}
+
+	@Override
+	public BaseQuantityDt clone() throws CloneNotSupportedException {
+		return (BaseQuantityDt) super.clone();
+	}
 }
