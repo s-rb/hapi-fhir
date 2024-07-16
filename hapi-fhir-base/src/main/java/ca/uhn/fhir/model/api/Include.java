@@ -39,7 +39,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * Note on thread safety: This class is not thread safe.
  * </p>
  */
-public class Include implements Serializable {
+public class Include implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -98,6 +98,15 @@ public class Include implements Serializable {
 	 */
 	public Include asRecursive() {
 		return new Include(myValue, true);
+	}
+
+	/**
+	 * Creates a full clone of this include
+	 */
+	@Override
+	@SuppressWarnings({"MethodDoesntCallSuperMethod"})
+	public Include clone() {
+		return new Include(myValue, myIterate, myImmutable);
 	}
 
 	/**

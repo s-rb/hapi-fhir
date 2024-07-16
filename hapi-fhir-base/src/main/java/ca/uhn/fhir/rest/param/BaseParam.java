@@ -30,7 +30,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 /**
  * Base class for RESTful operation parameter types
  */
-public abstract class BaseParam implements IQueryParameterType {
+public abstract class BaseParam implements IQueryParameterType, Cloneable {
 
 	private Boolean myMissing;
 
@@ -105,5 +105,13 @@ public abstract class BaseParam implements IQueryParameterType {
 			myMissing = null;
 			doSetValueAsQueryToken(theContext, theParamName, theQualifier, theValue);
 		}
+	}
+
+	@Override
+	@SuppressWarnings({"CloneNotSupportedException"})
+	public BaseParam clone() {
+		BaseParam clone = (BaseParam) super.clone();
+		clone.setMissing(myMissing);
+		return clone;
 	}
 }

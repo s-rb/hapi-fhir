@@ -27,7 +27,7 @@ import java.io.Serializable;
  * Represents values for <a href="http://hl7.org/implement/standards/fhir/search.html#sort">sorting</a> resources
  * returned by a server.
  */
-public class SortSpec implements Serializable {
+public class SortSpec implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 2866833099879713467L;
 
@@ -137,5 +137,15 @@ public class SortSpec implements Serializable {
 	public SortSpec setOrder(SortOrderEnum theOrder) {
 		myOrder = theOrder;
 		return this;
+	}
+
+	@Override
+	@SuppressWarnings({"CloneDoesntDeclareCloneNotSupportedException", "MethodDoesntCallSuperMethod", "CloneNotSupportedException"})
+	public SortSpec clone() {
+		SortSpec clone = (SortSpec) super.clone();
+		clone.setParamName(myParamName);
+		clone.setOrder(myOrder);
+		clone.setChain(myChain);
+		return clone;
 	}
 }

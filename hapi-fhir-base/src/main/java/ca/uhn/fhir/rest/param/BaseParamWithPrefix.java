@@ -24,7 +24,7 @@ import ca.uhn.fhir.parser.DataFormatException;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public abstract class BaseParamWithPrefix<T extends BaseParam> extends BaseParam {
+public abstract class BaseParamWithPrefix<T extends BaseParam> extends BaseParam implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	private static final org.slf4j.Logger ourLog = org.slf4j.LoggerFactory.getLogger(BaseParamWithPrefix.class);
@@ -115,5 +115,13 @@ public abstract class BaseParamWithPrefix<T extends BaseParam> extends BaseParam
 	public T setPrefix(ParamPrefixEnum thePrefix) {
 		myPrefix = thePrefix;
 		return (T) this;
+	}
+
+	@Override
+	@SuppressWarnings({"CloneNotSupportedException"})
+	public BaseParamWithPrefix<T> clone() {
+		BaseParamWithPrefix<T> clone = (BaseParamWithPrefix<T>) super.clone();
+		clone.setPrefix(myPrefix);
+		return clone;
 	}
 }

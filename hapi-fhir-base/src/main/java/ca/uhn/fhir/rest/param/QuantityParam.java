@@ -34,7 +34,7 @@ import org.hl7.fhir.instance.model.api.IPrimitiveType;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class QuantityParam extends BaseParamWithPrefix<QuantityParam> implements IQueryParameterType {
+public class QuantityParam extends BaseParamWithPrefix<QuantityParam> implements IQueryParameterType, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	private BigDecimal myValue;
@@ -318,5 +318,15 @@ public class QuantityParam extends BaseParamWithPrefix<QuantityParam> implements
 		} else {
 			throw new IllegalArgumentException(Msg.code(1948) + "Invalid quantity type: " + theParam.getClass());
 		}
+	}
+
+	@Override
+	@SuppressWarnings({"CloneNotSupportedException"})
+	public QuantityParam clone() {
+		QuantityParam clone = (QuantityParam) super.clone();
+		clone.setValue(myValue);
+		clone.setSystem(mySystem);
+		clone.setUnits(myUnits);
+		return clone;
 	}
 }

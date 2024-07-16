@@ -23,7 +23,7 @@ import ca.uhn.fhir.context.FhirContext;
 
 import java.io.Serializable;
 
-public interface IQueryParameterType extends Serializable {
+public interface IQueryParameterType extends Serializable, Cloneable {
 
 	/**
 	 * This method is generally only called by HAPI itself, and should not need to be called from user code.

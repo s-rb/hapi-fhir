@@ -54,6 +54,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class SearchParameterMap implements Serializable {
+public class SearchParameterMap implements Serializable, Cloneable {
 	public static final Integer INTEGER_0 = 0;
 	private static final org.slf4j.Logger ourLog = org.slf4j.LoggerFactory.getLogger(SearchParameterMap.class);
 	private static final long serialVersionUID = 1L;
@@ -101,25 +102,26 @@ public class SearchParameterMap implements Serializable {
 	}
 
 	/**
-	 * Creates and returns a copy of this map
+	 * Creates and returns a deep clone of this map
 	 */
 	@JsonIgnore
 	@Override
-	public SearchParameterMap clone() {
-		SearchParameterMap map = new SearchParameterMap();
+	@SuppressWarnings({"CloneDoesntDeclareCloneNotSupportedException", "MethodDoesntCallSuperMethod", "CloneNotSupportedException"})
+	public SearchParameterMap clone() throws CloneNotSupportedException {
+		SearchParameterMap map = (SearchParameterMap) super.clone(); // deep cloning
 		map.setSummaryMode(getSummaryMode());
-		map.setSort(getSort());
+		map.setSort(getSortClone());
 		map.setSearchTotalMode(getSearchTotalMode());
-		map.setRevIncludes(getRevIncludes());
-		map.setIncludes(getIncludes());
+		map.setRevIncludes(getRevIncludesClone());
+		map.setIncludes(getIncludesClone());
 		map.setEverythingMode(getEverythingMode());
 		map.setCount(getCount());
 		map.setDeleteExpunge(isDeleteExpunge());
 		map.setLastN(isLastN());
 		map.setLastNMax(getLastNMax());
-		map.setLastUpdated(getLastUpdated());
+		map.setLastUpdated(getLastUpdatedClone());
 		map.setLoadSynchronous(isLoadSynchronous());
-		map.setNearDistanceParam(getNearDistanceParam());
+		map.setNearDistanceParam(getNearDistanceParamClone());
 		map.setLoadSynchronousUpTo(getLoadSynchronousUpTo());
 		map.setOffset(getOffset());
 		map.setSearchContainedMode(getSearchContainedMode());
@@ -135,6 +137,30 @@ public class SearchParameterMap implements Serializable {
 		}
 
 		return map;
+	}
+
+	private QuantityParam getNearDistanceParamClone() {
+		if (myNearDistanceParam == null) return null;
+		return myNearDistanceParam.clone();
+	}
+
+	private DateRangeParam getLastUpdatedClone() {
+		if (myLastUpdated == null) return null;
+		return myLastUpdated.clone();
+	}
+
+	private Set<Include> getIncludesClone() {
+		if (myIncludes == null) return null;
+		return myIncludes.stream().map(Include::clone).collect(Collectors.toSet());
+	}
+
+	private Set<Include> getRevIncludesClone() {
+		if (myRevIncludes == null) return null;
+		return myRevIncludes.stream().map(Include::clone).collect(Collectors.toSet());
+	}
+
+	private SortSpec getSortClone() {
+		return Optional.ofNullable(mySort).map(SortSpec::clone).orElse(null);
 	}
 
 	public SummaryEnum getSummaryMode() {

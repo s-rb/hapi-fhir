@@ -43,7 +43,7 @@ import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @SuppressWarnings("UnusedReturnValue")
-public class DateRangeParam implements IQueryParameterAnd<DateParam> {
+public class DateRangeParam implements IQueryParameterAnd<DateParam>, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -692,5 +692,10 @@ public class DateRangeParam implements IQueryParameterAnd<DateParam> {
 
 		myLowerBound = lowerBound;
 		myUpperBound = upperBound;
+	}
+
+	@Override
+	public DateRangeParam clone() {
+		return new DateRangeParam(this);
 	}
 }
