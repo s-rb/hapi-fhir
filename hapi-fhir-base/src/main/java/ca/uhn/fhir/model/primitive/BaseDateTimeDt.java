@@ -748,12 +748,12 @@ public abstract class BaseDateTimeDt extends BasePrimitive<Date> implements Clon
 	}
 
 	@Override
-	public BaseDateTimeDt clone() {
+	public BaseDateTimeDt clone() throws CloneNotSupportedException {
 		BaseDateTimeDt clone = (BaseDateTimeDt) super.clone();
 		clone.myFractionalSeconds = myFractionalSeconds;
 		clone.myPrecision = myPrecision;
-		clone.myTimeZone
-		clone.myTimeZoneZulu
+		clone.myTimeZone = myTimeZone != null ? TimeZone.getTimeZone(myTimeZone.getID()) : null;
+		clone.myTimeZoneZulu = myTimeZoneZulu;
 		return clone;
 	}
 }

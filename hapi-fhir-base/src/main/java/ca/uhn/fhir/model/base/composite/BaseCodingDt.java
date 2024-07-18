@@ -31,8 +31,9 @@ import ca.uhn.fhir.model.primitive.UriDt;
 import ca.uhn.fhir.rest.param.ParameterUtil;
 import ca.uhn.fhir.rest.param.TokenParam;
 import org.apache.commons.lang3.StringUtils;
+import org.hl7.fhir.instance.model.api.IBaseDatatype;
 
-public abstract class BaseCodingDt extends BaseIdentifiableElement implements ICompositeDatatype, IQueryParameterType {
+public abstract class BaseCodingDt extends BaseIdentifiableElement implements ICompositeDatatype, IQueryParameterType, Cloneable {
 
 	private static final long serialVersionUID = 4425182816398730643L;
 
@@ -197,5 +198,10 @@ public abstract class BaseCodingDt extends BaseIdentifiableElement implements IC
 		throw new UnsupportedOperationException(
 				Msg.code(1903)
 						+ "get/setMissing is not supported in StringDt. Use {@link StringParam} instead if you need this functionality");
+	}
+
+	@Override
+	public BaseCodingDt clone() throws CloneNotSupportedException {
+		return (BaseCodingDt) super.clone();
 	}
 }

@@ -29,7 +29,7 @@ import org.hl7.fhir.instance.model.api.INarrative;
  * @param <T> The narrative status enum type
  */
 public abstract class BaseNarrativeDt<T extends Enum<?>> extends BaseIdentifiableElement
-		implements ICompositeDatatype, INarrative {
+		implements ICompositeDatatype, INarrative, Cloneable {
 
 	private static final long serialVersionUID = -525238683230100077L;
 
@@ -57,4 +57,9 @@ public abstract class BaseNarrativeDt<T extends Enum<?>> extends BaseIdentifiabl
 	}
 
 	public abstract XhtmlDt getDiv();
+
+	@Override
+	public BaseNarrativeDt clone() throws CloneNotSupportedException {
+		return (BaseNarrativeDt) super.clone();
+	}
 }

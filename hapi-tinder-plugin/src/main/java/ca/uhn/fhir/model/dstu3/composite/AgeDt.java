@@ -22,4 +22,9 @@ package ca.uhn.fhir.model.dstu3.composite;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 
 @DatatypeDef(name = "AgeDt")
-public class AgeDt extends QuantityDt {}
+public class AgeDt extends QuantityDt implements Cloneable {
+	@Override
+	public AgeDt clone() throws CloneNotSupportedException {
+		return (AgeDt) super.clone();
+	}
+}

@@ -31,7 +31,7 @@ import ca.uhn.fhir.rest.param.StringParam;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class BaseIdentifierDt extends BaseIdentifiableElement
-		implements ICompositeDatatype, IQueryParameterType {
+		implements ICompositeDatatype, IQueryParameterType, Cloneable {
 
 	private static final long serialVersionUID = 4400972469749953077L;
 
@@ -143,5 +143,10 @@ public abstract class BaseIdentifierDt extends BaseIdentifiableElement
 		throw new UnsupportedOperationException(
 				Msg.code(1907)
 						+ "get/setMissing is not supported in StringDt. Use {@link StringParam} instead if you need this functionality");
+	}
+
+	@Override
+	public BaseIdentifierDt clone() throws CloneNotSupportedException {
+		return (BaseIdentifierDt) super.clone();
 	}
 }

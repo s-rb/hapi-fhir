@@ -278,6 +278,11 @@ public abstract class BaseResource extends BaseElement implements IResource {
 				setId(getId().withVersion(theVersionId));
 				return this;
 			}
+
+//			@Override
+//			public IBaseMetaType clone() throws CloneNotSupportedException {
+//				return (IBaseMetaType) super.clone();
+//			}
 		};
 	}
 

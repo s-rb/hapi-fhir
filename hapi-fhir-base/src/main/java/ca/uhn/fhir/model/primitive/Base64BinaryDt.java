@@ -26,7 +26,7 @@ import ca.uhn.fhir.rest.api.Constants;
 import org.apache.commons.codec.binary.Base64;
 
 @DatatypeDef(name = "base64Binary")
-public class Base64BinaryDt extends BasePrimitive<byte[]> {
+public class Base64BinaryDt extends BasePrimitive<byte[]> implements Cloneable {
 
 	/**
 	 * Constructor
@@ -51,5 +51,11 @@ public class Base64BinaryDt extends BasePrimitive<byte[]> {
 	@Override
 	protected String encode(byte[] theValue) {
 		return new String(Base64.encodeBase64(theValue), Constants.CHARSET_UTF8);
+	}
+
+
+	@Override
+	public Base64BinaryDt clone() throws CloneNotSupportedException {
+		return (Base64BinaryDt) super.clone();
 	}
 }

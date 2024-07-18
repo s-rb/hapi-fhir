@@ -26,7 +26,7 @@ import ca.uhn.fhir.util.CoverageIgnore;
 
 import java.util.List;
 
-public abstract class BaseContainedDt implements IDatatype {
+public abstract class BaseContainedDt implements IDatatype, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -57,5 +57,11 @@ public abstract class BaseContainedDt implements IDatatype {
 	@CoverageIgnore
 	public boolean hasFormatComment() {
 		return false;
+	}
+
+
+	@Override
+	public BaseContainedDt clone() throws CloneNotSupportedException {
+		return (BaseContainedDt) super.clone();
 	}
 }

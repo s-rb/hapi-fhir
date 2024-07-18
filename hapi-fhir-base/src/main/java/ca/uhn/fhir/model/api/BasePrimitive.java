@@ -140,7 +140,7 @@ public abstract class BasePrimitive<T> extends BaseIdentifiableElement
 	@Override
 	public BasePrimitive clone() throws CloneNotSupportedException {
 		BasePrimitive clone = (BasePrimitive) super.clone();
-		clone.myCoercedValue = myCoercedValue.clone();
+		clone.myCoercedValue = myCoercedValue; // TODO: Clone object
 		clone.myStringValue = myStringValue;
 		return clone;
 	}
