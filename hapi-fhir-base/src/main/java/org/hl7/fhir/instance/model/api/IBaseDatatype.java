@@ -21,4 +21,6 @@ package org.hl7.fhir.instance.model.api;
 
 import ca.uhn.fhir.model.api.IElement;
 
-public interface IBaseDatatype extends IElement {}
+public interface IBaseDatatype extends IElement, Cloneable {
+	public IBaseDatatype clone() throws CloneNotSupportedException;
+} // TODO: implement clone everywhere
