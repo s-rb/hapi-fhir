@@ -36,7 +36,7 @@ import ca.uhn.fhir.util.CoverageIgnore;
 import java.util.List;
 
 @CoverageIgnore
-public class InternalCodingDt extends BaseCodingDt implements ICompositeDatatype {
+public class InternalCodingDt extends BaseCodingDt implements ICompositeDatatype, Cloneable {
 
 	private static final long serialVersionUID = 993056016725918652L;
 
@@ -341,5 +341,16 @@ public class InternalCodingDt extends BaseCodingDt implements ICompositeDatatype
 	@Override
 	public IQueryParameterType setMissing(Boolean theMissing) {
 		throw new UnsupportedOperationException(Msg.code(1951));
+	}
+
+	@Override
+	public InternalCodingDt clone() throws CloneNotSupportedException {
+		InternalCodingDt clone = (InternalCodingDt) super.clone();
+		clone.myCode = myCode.clone();
+		clone.mySystem = mySystem.clone();
+		clone.myDisplay = myDisplay.clone();
+		clone.myPrimary = myPrimary.clone();
+		clone.myVersion = myVersion.clone();
+		return clone;
 	}
 }

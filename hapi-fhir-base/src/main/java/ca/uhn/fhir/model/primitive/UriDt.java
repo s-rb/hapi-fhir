@@ -133,7 +133,6 @@ public class UriDt extends BasePrimitive<String> implements Cloneable {
 
 	@Override
 	public UriDt clone() throws CloneNotSupportedException {
-		UriDt clone = (UriDt) super.clone();
-		return clone;
+		return (UriDt) super.clone();
 	}
 }

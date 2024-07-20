@@ -53,7 +53,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * </p>
  */
 @DatatypeDef(name = "id", profileOf = StringDt.class)
-public class IdDt extends UriDt implements /*IPrimitiveDatatype<String>, */ IIdType {
+public class IdDt extends UriDt implements /*IPrimitiveDatatype<String>, */ IIdType, Cloneable {
 
 	private String myBaseUrl;
 	private boolean myHaveComponentParts;
@@ -721,5 +721,16 @@ public class IdDt extends UriDt implements /*IPrimitiveDatatype<String>, */ IIdT
 			throw new NullPointerException(Msg.code(1879) + "Long ID can not be null");
 		}
 		return theIdPart.toString();
+	}
+
+	@Override
+	public IdDt clone() throws CloneNotSupportedException {
+		IdDt clone = (IdDt) super.clone();
+		clone.myBaseUrl = myBaseUrl;
+		clone.myResourceType = myResourceType;
+		clone.myUnqualifiedId = myUnqualifiedId;
+		clone.myUnqualifiedVersionId = myUnqualifiedVersionId;
+		clone.myHaveComponentParts = myHaveComponentParts;
+		return clone;
 	}
 }

@@ -49,7 +49,7 @@ import java.util.List;
  * </p>
  */
 @DatatypeDef(name = "ResourceReferenceDt")
-public class ResourceReferenceDt extends BaseResourceReferenceDt implements ICompositeDatatype {
+public class ResourceReferenceDt extends BaseResourceReferenceDt implements ICompositeDatatype, Cloneable {
 
 	/**
 	 * Constructor
@@ -230,5 +230,13 @@ public class ResourceReferenceDt extends BaseResourceReferenceDt implements ICom
 	@Override
 	public StringDt getDisplayElement() {
 		return getDisplay();
+	}
+
+	@Override
+	public ResourceReferenceDt clone() throws CloneNotSupportedException {
+		ResourceReferenceDt clone = (ResourceReferenceDt) super.clone();
+		clone.myDisplay = myDisplay.clone();
+		clone.myReference = myReference.clone();
+		return clone;
 	}
 }

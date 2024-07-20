@@ -36,7 +36,7 @@ import java.util.TimeZone;
  * </ul>
  */
 @DatatypeDef(name = "instant")
-public class InstantDt extends BaseDateTimeDt {
+public class InstantDt extends BaseDateTimeDt implements Cloneable {
 
 	/**
 	 * The default precision for this type
@@ -183,5 +183,10 @@ public class InstantDt extends BaseDateTimeDt {
 	@Override
 	protected TemporalPrecisionEnum getDefaultPrecisionForDatatype() {
 		return DEFAULT_PRECISION;
+	}
+
+	@Override
+	public InstantDt clone() throws CloneNotSupportedException {
+		return (InstantDt) super.clone();
 	}
 }

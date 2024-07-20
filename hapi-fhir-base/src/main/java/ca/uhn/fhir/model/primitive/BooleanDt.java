@@ -27,7 +27,7 @@ import ca.uhn.fhir.parser.DataFormatException;
 import org.hl7.fhir.instance.model.api.IBaseBooleanDatatype;
 
 @DatatypeDef(name = "boolean")
-public class BooleanDt extends BasePrimitive<Boolean> implements IBaseBooleanDatatype {
+public class BooleanDt extends BasePrimitive<Boolean> implements IBaseBooleanDatatype, Cloneable {
 
 	/**
 	 * Constructor
@@ -61,5 +61,10 @@ public class BooleanDt extends BasePrimitive<Boolean> implements IBaseBooleanDat
 			return "true";
 		}
 		return "false";
+	}
+
+	@Override
+	public BooleanDt clone() throws CloneNotSupportedException {
+		return (BooleanDt) super.clone();
 	}
 }

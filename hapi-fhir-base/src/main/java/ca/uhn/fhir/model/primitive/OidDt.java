@@ -22,7 +22,11 @@ package ca.uhn.fhir.model.primitive;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 
 @DatatypeDef(name = "oid", profileOf = UriDt.class)
-public class OidDt extends UriDt {
+public class OidDt extends UriDt implements Cloneable {
+	@Override
+	public OidDt clone() throws CloneNotSupportedException {
+		return (OidDt) super.clone();
+	}
 
 	// TODO: implement restrictions
 

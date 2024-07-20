@@ -24,7 +24,7 @@ import ca.uhn.fhir.model.api.annotation.SimpleSetter;
 import ca.uhn.fhir.model.dstu2.valueset.QuantityComparatorEnum;
 
 @DatatypeDef(name = "SimpleQuantity")
-public class SimpleQuantityDt extends QuantityDt {
+public class SimpleQuantityDt extends QuantityDt implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -101,5 +101,10 @@ public class SimpleQuantityDt extends QuantityDt {
 		setValue(theValue);
 		setSystem(theSystem);
 		setUnit(theUnits);
+	}
+
+	@Override
+	public SimpleQuantityDt clone() throws CloneNotSupportedException {
+		return (SimpleQuantityDt) super.clone();
 	}
 }

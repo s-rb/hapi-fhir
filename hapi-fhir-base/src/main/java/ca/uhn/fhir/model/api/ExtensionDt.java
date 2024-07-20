@@ -173,10 +173,15 @@ public class ExtensionDt extends BaseIdentifiableElement
 
 	@Override
 	public ExtensionDt clone() {
-		ExtensionDt clone = (ExtensionDt) super.clone();
-		clone.myModifier = myModifier;
-		clone.myUrl = myUrl.clone();
-		clone.myValue = myValue.clone();
+		ExtensionDt clone = null;
+		try {
+			clone = (ExtensionDt) super.clone();
+			clone.myModifier = myModifier;
+			clone.myUrl = myUrl.clone();
+			clone.myValue = myValue.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 		return clone;
 	}
 }

@@ -22,4 +22,9 @@ package ca.uhn.fhir.model.dstu3.composite;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 
 @DatatypeDef(name = "Money")
-public class MoneyDt extends QuantityDt {}
+public class MoneyDt extends QuantityDt implements Cloneable {
+	@Override
+	public MoneyDt clone() throws CloneNotSupportedException {
+		return (MoneyDt) super.clone();
+	}
+}

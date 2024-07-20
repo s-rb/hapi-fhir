@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class BaseElement implements /*IElement, */ ISupportsUndeclaredExtensions, Cloneable {
 
@@ -182,31 +183,6 @@ public abstract class BaseElement implements /*IElement, */ ISupportsUndeclaredE
 		userData.put(name, value);
 	}
 
-	@Override
-	protected BaseElement clone() throws CloneNotSupportedException {
-		BaseElement clone = (BaseElement) super.clone();
-		if (userData != null) {
-			for (Map.Entry<String, Object> entry : userData.entrySet()) {
-				String key = entry.getKey();
-				Object value = entry.getValue(); // TODO: should explicitly clone the value Object
-				clone.setUserData(key, value);
-			}
-		}
-		if (myFormatCommentsPost != null) {
-			for (String p : myFormatCommentsPost) clone.getFormatCommentsPost().add(p);
-		}
-		if (myFormatCommentsPre != null) {
-			for (String p : myFormatCommentsPre) clone.getFormatCommentsPre().add(p);
-		}
-		if (myUndeclaredExtensions != null) {
-			for (ExtensionDt e : myUndeclaredExtensions) clone.getUndeclaredExtensions().add(e.clone());
-		}
-		if (myUndeclaredModifierExtensions != null) {
-			for (ExtensionDt e : myUndeclaredModifierExtensions) clone.getUndeclaredModifierExtensions().add(e);
-		}
-		return clone;
-	}
-
 	/**
 	 * Intended to be called by extending classes {@link #isEmpty()} implementations, returns <code>true</code> if all
 	 * content in this superclass instance is empty per the semantics of {@link #isEmpty()}.
@@ -233,5 +209,19 @@ public abstract class BaseElement implements /*IElement, */ ISupportsUndeclaredE
 			}
 		}
 		return true;
+	}
+
+	@Override
+	protected BaseElement clone() throws CloneNotSupportedException {
+		BaseElement clone = (BaseElement) super.clone();
+		clone.userData = userData.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,
+				entry -> entry.getValue())); // TODO: should explicitly clone the value Object
+		clone.myFormatCommentsPost = new ArrayList<>(myFormatCommentsPost);
+		clone.myFormatCommentsPre = new ArrayList<>(myFormatCommentsPre);
+		clone.myUndeclaredExtensions = myUndeclaredExtensions.stream()
+			.map(ExtensionDt::clone).collect(Collectors.toList());
+		clone.myUndeclaredModifierExtensions = myUndeclaredModifierExtensions.stream()
+			.map(ExtensionDt::clone).collect(Collectors.toList());
+		return clone;
 	}
 }

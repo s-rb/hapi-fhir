@@ -33,7 +33,7 @@ import org.hl7.fhir.instance.model.api.IIdType;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public abstract class BaseResourceReferenceDt extends BaseIdentifiableElement implements IBaseDatatype, IBaseReference {
+public abstract class BaseResourceReferenceDt extends BaseIdentifiableElement implements IBaseDatatype, IBaseReference, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -142,5 +142,12 @@ public abstract class BaseResourceReferenceDt extends BaseIdentifiableElement im
 		b.append("reference", getReference().getValueAsString());
 		b.append("loaded", getResource() != null);
 		return b.toString();
+	}
+
+	@Override
+	public BaseResourceReferenceDt clone() throws CloneNotSupportedException {
+		BaseResourceReferenceDt clone = (BaseResourceReferenceDt) super.clone();
+		clone.myResource = myResource.clone();
+		return clone;
 	}
 }

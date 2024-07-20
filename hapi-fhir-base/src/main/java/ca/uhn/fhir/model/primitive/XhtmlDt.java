@@ -38,7 +38,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * methods to do so.
  */
 @DatatypeDef(name = "xhtml")
-public class XhtmlDt extends BasePrimitive<String> {
+public class XhtmlDt extends BasePrimitive<String> implements Cloneable {
 
 	private static final String DECL_XMLNS = " xmlns=\"http://www.w3.org/1999/xhtml\"";
 	public static final String DIV_OPEN_FIRST = "<div" + DECL_XMLNS + ">";
@@ -151,5 +151,10 @@ public class XhtmlDt extends BasePrimitive<String> {
 			}
 		}
 		return value;
+	}
+
+	@Override
+	public XhtmlDt clone() throws CloneNotSupportedException {
+		return (XhtmlDt) super.clone();
 	}
 }

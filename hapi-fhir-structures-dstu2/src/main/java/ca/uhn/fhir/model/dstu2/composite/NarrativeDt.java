@@ -45,7 +45,7 @@ import java.util.List;
  * </p>
  */
 @DatatypeDef(name = "Narrative")
-public class NarrativeDt extends BaseNarrativeDt {
+public class NarrativeDt extends BaseNarrativeDt implements Cloneable {
 
 	@Child(name = "status", type = CodeDt.class, order = 0, min = 1, max = 1)
 	private BoundCodeDt<NarrativeStatusEnum> myStatus;
@@ -178,5 +178,13 @@ public class NarrativeDt extends BaseNarrativeDt {
 	 */
 	public void setDiv(String theTextDiv) {
 		myDiv = new XhtmlDt(theTextDiv);
+	}
+
+	@Override
+	public NarrativeDt clone() throws CloneNotSupportedException {
+		NarrativeDt clone = (NarrativeDt) super.clone();
+		clone.myDiv = myDiv.clone();
+		clone.myStatus = myStatus.clone();
+		return clone;
 	}
 }

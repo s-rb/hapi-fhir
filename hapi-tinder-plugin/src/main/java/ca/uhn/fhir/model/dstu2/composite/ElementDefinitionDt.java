@@ -25,7 +25,9 @@ import ca.uhn.fhir.model.primitive.MarkdownDt;
 import ca.uhn.fhir.model.primitive.StringDt;
 import ca.uhn.fhir.model.primitive.UriDt;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * HAPI/FHIR <b>ElementDefinitionDt</b> Datatype
@@ -42,7 +44,7 @@ import java.util.List;
  * </p>
  */
 @DatatypeDef(name = "ElementDefinitionDt")
-public class ElementDefinitionDt extends BaseIdentifiableElement implements ICompositeDatatype {
+public class ElementDefinitionDt extends BaseIdentifiableElement implements ICompositeDatatype, Cloneable {
 
 	/**
 	 * Constructor
@@ -2037,6 +2039,59 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 		return getMapping().get(0);
 	}
 
+	@Override
+	public ElementDefinitionDt clone() {
+		ElementDefinitionDt clone = null;
+		try {
+			clone = (ElementDefinitionDt) super.clone();
+
+			clone.myAlias = new ArrayList<>();
+			for (StringDt stringDt : myAlias) clone.myAlias.add(stringDt.clone());
+
+			clone.myBase = myBase.clone();
+			clone.myBinding = myBinding.clone();
+			clone.myCode = new ArrayList<>(myCode); // TODO: can't implement clone()
+			clone.myComments = myComments.clone();
+
+			clone.myCondition = new ArrayList<>();
+			for (IdDt o : myCondition) clone.myCondition.add(o.clone());
+
+			clone.myConstraint = myConstraint.stream().map(Constraint::clone).collect(Collectors.toList());;
+
+			clone.myDefaultValue = myDefaultValue.clone();
+			clone.myDefinition = myDefinition.clone();
+			clone.myExample = myExample.clone();
+			clone.myFixed = myFixed.clone();
+			clone.myIsModifier = myIsModifier.clone();
+			clone.myIsSummary = myIsSummary.clone();
+			clone.myLabel = myLabel.clone();
+			clone.myMapping = myMapping.stream().map(Mapping::clone).collect(Collectors.toList());
+			clone.myMax = myMax.clone();
+			clone.myMaxLength = myMaxLength.clone();
+			clone.myMaxValue = myMaxValue.clone();
+			clone.myMeaningWhenMissing = myMeaningWhenMissing.clone();
+			clone.myMin = myMin.clone();
+			clone.myMinValue = myMinValue.clone();
+			clone.myMustSupport = myMustSupport.clone();
+			clone.myName = myName.clone();
+			clone.myNameReference = myNameReference.clone();
+			clone.myPath = myPath.clone();
+			clone.myPattern = myPattern.clone();
+
+			clone.myRepresentation = new ArrayList<>();
+			for (var o : myRepresentation) clone.myRepresentation.add(o.clone());
+
+			clone.myRequirements = myRequirements.clone();
+			clone.myShort = myShort.clone();
+			clone.mySlicing = mySlicing.clone();
+			clone.myType = new ArrayList<>();
+			for (var o : myType) clone.myType.add(o.clone());
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
+		return clone;
+	}
+
 	/**
 	 * Block class for child element: <b>ElementDefinition.slicing</b> ()
 	 *
@@ -2046,7 +2101,7 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 	 * </p>
 	 */
 	@Block()
-	public static class Slicing extends BaseIdentifiableElement implements IResourceBlock {
+	public static class Slicing extends BaseIdentifiableElement implements IResourceBlock, Cloneable {
 
 		@Child(
 				name = "discriminator",
@@ -2365,6 +2420,23 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 			getRulesElement().setValueAsEnum(theValue);
 			return this;
 		}
+
+		@Override
+		public Slicing clone() {
+			try {
+				Slicing clone = (Slicing) super.clone();
+				clone.myDescription = myDescription.clone();
+				clone.myOrdered = myOrdered.clone();
+				clone.myRules = myRules.clone();
+
+				clone.myDiscriminator = new ArrayList<>();
+				for (StringDt o : myDiscriminator) clone.myDiscriminator.add(o.clone());
+
+				return clone;
+			} catch (CloneNotSupportedException e) {
+				throw new AssertionError();
+			}
+		}
 	}
 
 	/**
@@ -2376,7 +2448,7 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 	 * </p>
 	 */
 	@Block()
-	public static class Base extends BaseIdentifiableElement implements IResourceBlock {
+	public static class Base extends BaseIdentifiableElement implements IResourceBlock, Cloneable {
 
 		@Child(name = "path", type = StringDt.class, order = 0, min = 1, max = 1, summary = true, modifier = false)
 		@Description(
@@ -2577,6 +2649,15 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 			myMax = new StringDt(theString);
 			return this;
 		}
+
+		@Override
+		public Base clone() throws CloneNotSupportedException {
+			Base clone = (Base) super.clone();
+			clone.myMax = myMax.clone();
+			clone.myMin = myMin.clone();
+			clone.myPath = myPath.clone();
+			return clone;
+		}
 	}
 
 	/**
@@ -2588,7 +2669,7 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 	 * </p>
 	 */
 	@Block()
-	public static class Type extends BaseIdentifiableElement implements IResourceBlock {
+	public static class Type extends BaseIdentifiableElement implements IResourceBlock, Cloneable {
 
 		@Child(name = "code", type = CodeDt.class, order = 0, min = 1, max = 1, summary = true, modifier = false)
 		@Description(
@@ -2877,6 +2958,21 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 			addAggregation(theValue);
 			return this;
 		}
+
+		@Override
+		public Type clone() {
+			try {
+				Type clone = (Type) super.clone();
+				clone.myCode = myCode.clone();
+				clone.myAggregation = new ArrayList<>();
+				for (var o : myAggregation) clone.myAggregation.add(o.clone());
+				clone.myProfile = new ArrayList<>();
+				for (var o : myProfile) clone.myProfile.add(o.clone());
+				return clone;
+			} catch (CloneNotSupportedException e) {
+				throw new AssertionError();
+			}
+		}
 	}
 
 	/**
@@ -2888,7 +2984,7 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 	 * </p>
 	 */
 	@Block()
-	public static class Constraint extends BaseIdentifiableElement implements IResourceBlock {
+	public static class Constraint extends BaseIdentifiableElement implements IResourceBlock, Cloneable {
 
 		@Child(name = "key", type = IdDt.class, order = 0, min = 1, max = 1, summary = true, modifier = false)
 		@Description(
@@ -3226,6 +3322,22 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 			myXpath = new StringDt(theString);
 			return this;
 		}
+
+		@Override
+		public Constraint clone() {
+			Constraint clone = null;
+			try {
+				clone = (Constraint) super.clone();
+				clone.myHuman = myHuman.clone();
+				clone.myRequirements = myRequirements.clone();
+				clone.myKey = myKey.clone();
+				clone.myXpath = myXpath.clone();
+				clone.mySeverity = mySeverity.clone();
+			} catch (CloneNotSupportedException e) {
+				throw new RuntimeException(e);
+			}
+			return clone;
+		}
 	}
 
 	/**
@@ -3237,7 +3349,7 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 	 * </p>
 	 */
 	@Block()
-	public static class Binding extends BaseIdentifiableElement implements IResourceBlock {
+	public static class Binding extends BaseIdentifiableElement implements IResourceBlock, Cloneable {
 
 		@Child(name = "strength", type = CodeDt.class, order = 0, min = 1, max = 1, summary = true, modifier = false)
 		@Description(
@@ -3424,6 +3536,15 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 			myValueSet = theValue;
 			return this;
 		}
+
+		@Override
+		public Binding clone() throws CloneNotSupportedException {
+			Binding clone = (Binding) super.clone();
+			clone.myDescription = myDescription.clone();
+			clone.myStrength = myStrength.clone();
+			clone.myValueSet = myValueSet.clone();
+			return clone;
+		}
 	}
 
 	/**
@@ -3435,7 +3556,7 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 	 * </p>
 	 */
 	@Block()
-	public static class Mapping extends BaseIdentifiableElement implements IResourceBlock {
+	public static class Mapping extends BaseIdentifiableElement implements IResourceBlock, Cloneable {
 
 		@Child(name = "identity", type = IdDt.class, order = 0, min = 1, max = 1, summary = true, modifier = false)
 		@Description(shortDefinition = "", formalDefinition = "An internal reference to the definition of a mapping")
@@ -3632,6 +3753,20 @@ public class ElementDefinitionDt extends BaseIdentifiableElement implements ICom
 		public Mapping setMap(String theString) {
 			myMap = new StringDt(theString);
 			return this;
+		}
+
+		@Override
+		public Mapping clone() {
+			Mapping clone = null;
+			try {
+				clone = (Mapping) super.clone();
+				clone.myMap = myMap.clone();
+				clone.myIdentity = myIdentity.clone();
+				clone.myLanguage = myLanguage.clone();
+			} catch (CloneNotSupportedException e) {
+				throw new RuntimeException(e);
+			}
+			return clone;
 		}
 	}
 }

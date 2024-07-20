@@ -26,7 +26,7 @@ import ca.uhn.fhir.util.CoverageIgnore;
 
 @DatatypeDef(name = "unsignedInt", profileOf = IntegerDt.class)
 @CoverageIgnore
-public class UnsignedIntDt extends IntegerDt {
+public class UnsignedIntDt extends IntegerDt implements Cloneable {
 
 	/**
 	 * Constructor
@@ -53,5 +53,10 @@ public class UnsignedIntDt extends IntegerDt {
 	 */
 	public UnsignedIntDt(String theIntegerAsString) {
 		setValueAsString(theIntegerAsString);
+	}
+
+	@Override
+	public UnsignedIntDt clone() throws CloneNotSupportedException {
+		return (UnsignedIntDt) super.clone();
 	}
 }

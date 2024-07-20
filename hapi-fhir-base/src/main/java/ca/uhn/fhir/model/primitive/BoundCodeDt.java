@@ -89,7 +89,7 @@ public class BoundCodeDt<T extends Enum<?>> extends CodeDt implements Cloneable 
 	}
 
 	@Override
-	public BoundCodeDt clone() {
+	public BoundCodeDt clone() throws CloneNotSupportedException {
 		BoundCodeDt clone = (BoundCodeDt) super.clone();
 		clone.myBinder = myBinder.clone();
 		return clone;

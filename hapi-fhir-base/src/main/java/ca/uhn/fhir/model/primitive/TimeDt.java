@@ -37,7 +37,7 @@ import ca.uhn.fhir.model.api.annotation.SimpleSetter;
  *        TODO: validate time?
  */
 @DatatypeDef(name = "time")
-public class TimeDt extends StringDt implements IQueryParameterType {
+public class TimeDt extends StringDt implements IQueryParameterType, Cloneable {
 
 	/**
 	 * Create a new String
@@ -53,5 +53,10 @@ public class TimeDt extends StringDt implements IQueryParameterType {
 	public TimeDt(@SimpleSetter.Parameter(name = "theString") String theValue) {
 		this();
 		setValue(theValue);
+	}
+
+	@Override
+	public TimeDt clone() throws CloneNotSupportedException {
+		return (TimeDt) super.clone();
 	}
 }

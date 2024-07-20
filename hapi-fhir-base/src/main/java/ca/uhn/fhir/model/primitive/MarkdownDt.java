@@ -24,4 +24,9 @@ import ca.uhn.fhir.util.CoverageIgnore;
 
 @DatatypeDef(name = "markdown", profileOf = StringDt.class)
 @CoverageIgnore
-public class MarkdownDt extends StringDt {}
+public class MarkdownDt extends StringDt implements Cloneable {
+	@Override
+	public MarkdownDt clone() throws CloneNotSupportedException {
+		return (MarkdownDt) super.clone();
+	}
+}

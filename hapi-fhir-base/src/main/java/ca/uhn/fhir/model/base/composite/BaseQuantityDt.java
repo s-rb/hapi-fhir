@@ -36,7 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.math.BigDecimal;
 
 public abstract class BaseQuantityDt extends BaseIdentifiableElement
-		implements ICompositeDatatype, IQueryParameterType {
+		implements ICompositeDatatype, IQueryParameterType, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 

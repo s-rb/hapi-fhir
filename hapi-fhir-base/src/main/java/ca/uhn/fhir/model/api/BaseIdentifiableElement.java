@@ -80,7 +80,7 @@ public abstract class BaseIdentifiableElement extends BaseElement implements IId
 	}
 
 	@CoverageIgnore
-	private static class LockedId extends IdDt {
+	private static class LockedId extends IdDt implements Cloneable {
 
 		@CoverageIgnore
 		public LockedId() {}
@@ -103,12 +103,17 @@ public abstract class BaseIdentifiableElement extends BaseElement implements IId
 			throw new UnsupportedOperationException(
 					Msg.code(1900) + "Use IElement#setElementSpecificId(String) to set the element ID for an element");
 		}
+
+		@Override
+		public LockedId clone() throws CloneNotSupportedException {
+			return (LockedId) super.clone();
+		}
 	}
 
 	@Override
 	protected BaseIdentifiableElement clone() throws CloneNotSupportedException {
 		BaseIdentifiableElement clone = (BaseIdentifiableElement) super.clone();
-		clone.setElementSpecificId(myElementSpecificId);
+		clone.myElementSpecificId = myElementSpecificId;
 		return clone;
 	}
 }

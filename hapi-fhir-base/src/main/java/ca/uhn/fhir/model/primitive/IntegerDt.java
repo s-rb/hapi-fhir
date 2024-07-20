@@ -27,7 +27,7 @@ import ca.uhn.fhir.parser.DataFormatException;
 import org.hl7.fhir.instance.model.api.IBaseIntegerDatatype;
 
 @DatatypeDef(name = "integer")
-public class IntegerDt extends BasePrimitive<Integer> implements IBaseIntegerDatatype {
+public class IntegerDt extends BasePrimitive<Integer> implements IBaseIntegerDatatype, Cloneable {
 
 	/**
 	 * Constructor
@@ -68,5 +68,10 @@ public class IntegerDt extends BasePrimitive<Integer> implements IBaseIntegerDat
 	@Override
 	protected String encode(Integer theValue) {
 		return Integer.toString(theValue);
+	}
+
+	@Override
+	public IntegerDt clone() throws CloneNotSupportedException {
+		return (IntegerDt) super.clone();
 	}
 }
