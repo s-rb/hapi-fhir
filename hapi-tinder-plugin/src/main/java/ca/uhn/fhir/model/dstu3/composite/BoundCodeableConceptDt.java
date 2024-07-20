@@ -31,7 +31,7 @@ import java.util.Set;
 import static org.apache.commons.lang3.StringUtils.defaultString;
 
 @DatatypeDef(name = "CodeableConcept", isSpecialization = true)
-public class BoundCodeableConceptDt<T extends Enum<?>> extends CodeableConceptDt implements IBoundCodeableConcept {
+public class BoundCodeableConceptDt<T extends Enum<?>> extends CodeableConceptDt implements IBoundCodeableConcept, Cloneable {
 
 	private IValueSetEnumBinder<T> myBinder;
 
@@ -140,5 +140,12 @@ public class BoundCodeableConceptDt<T extends Enum<?>> extends CodeableConceptDt
 			}
 		}
 		return retVal;
+	}
+
+	@Override
+	public BoundCodeableConceptDt clone() {
+		BoundCodeableConceptDt clone = (BoundCodeableConceptDt) super.clone();
+		clone.myBinder = myBinder.clone();
+		return clone;
 	}
 }

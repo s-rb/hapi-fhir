@@ -27,9 +27,10 @@ import ca.uhn.fhir.model.base.composite.BaseContainedDt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @DatatypeDef(name = "contained")
-public class ContainedDt extends BaseContainedDt {
+public class ContainedDt extends BaseContainedDt implements Cloneable {
 
 	@Child(name = "resource", type = IResource.class, order = 0, min = 0, max = Child.MAX_UNLIMITED)
 	private List<IResource> myContainedResources;
@@ -59,5 +60,17 @@ public class ContainedDt extends BaseContainedDt {
 	@Override
 	public void setUserData(String theName, Object theValue) {
 		throw new UnsupportedOperationException(Msg.code(581));
+	}
+
+	@Override
+	public ContainedDt clone() {
+		try {
+			ContainedDt clone = (ContainedDt) super.clone();
+			clone.myContainedResources = myContainedResources.stream()
+				.map(IResource::clone).collect(Collectors.toList());
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

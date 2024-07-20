@@ -22,4 +22,13 @@ package ca.uhn.fhir.model.dstu3.composite;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 
 @DatatypeDef(name = "DurationDt")
-public class DurationDt extends QuantityDt {}
+public class DurationDt extends QuantityDt implements Cloneable {
+	@Override
+	public DurationDt clone() {
+		try {
+			return (DurationDt) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+}

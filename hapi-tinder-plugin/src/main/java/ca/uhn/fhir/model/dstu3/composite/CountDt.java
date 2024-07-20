@@ -22,4 +22,13 @@ package ca.uhn.fhir.model.dstu3.composite;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 
 @DatatypeDef(name = "CountDt")
-public class CountDt extends QuantityDt {}
+public class CountDt extends QuantityDt implements Cloneable {
+	@Override
+	public CountDt clone() {
+		try {
+			return (CountDt) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+}

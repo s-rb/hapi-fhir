@@ -111,9 +111,13 @@ public abstract class BaseIdentifiableElement extends BaseElement implements IId
 	}
 
 	@Override
-	protected BaseIdentifiableElement clone() throws CloneNotSupportedException {
-		BaseIdentifiableElement clone = (BaseIdentifiableElement) super.clone();
-		clone.myElementSpecificId = myElementSpecificId;
-		return clone;
+	protected BaseIdentifiableElement clone() {
+		try {
+			BaseIdentifiableElement clone = (BaseIdentifiableElement) super.clone();
+			clone.myElementSpecificId = myElementSpecificId;
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

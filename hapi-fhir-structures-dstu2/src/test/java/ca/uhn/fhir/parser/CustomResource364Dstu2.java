@@ -54,7 +54,7 @@ public class CustomResource364Dstu2 extends BaseResource implements IBaseOperati
 	}
 
 	@DatatypeDef(name="CustomDate")
-	public static class CustomResource364CustomDate extends BaseIdentifiableElement implements ICompositeDatatype {
+	public static class CustomResource364CustomDate extends BaseIdentifiableElement implements ICompositeDatatype, Cloneable {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -80,6 +80,15 @@ public class CustomResource364Dstu2 extends BaseResource implements IBaseOperati
 		public CustomResource364CustomDate setDate(DateTimeDt theValue) {
 			date = theValue;
 			return this;
+		}
+
+		@Override
+		public CustomResource364CustomDate clone() {
+			try {
+				return (CustomResource364CustomDate) super.clone();
+			} catch (CloneNotSupportedException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 

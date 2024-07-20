@@ -70,7 +70,6 @@ public class CodeDt extends BasePrimitive<String> implements Comparable<CodeDt>,
 
 	@Override
 	public CodeDt clone() throws CloneNotSupportedException {
-		CodeDt clone = (CodeDt) super.clone();
-		return clone;
+		return (CodeDt) super.clone();
 	}
 }

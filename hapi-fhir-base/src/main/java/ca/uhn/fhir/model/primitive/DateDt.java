@@ -49,7 +49,7 @@ import java.util.TimeZone;
  * </p>
  */
 @DatatypeDef(name = "date")
-public class DateDt extends BaseDateTimeDt {
+public class DateDt extends BaseDateTimeDt implements Cloneable {
 
 	/**
 	 * The default precision for this type
@@ -150,5 +150,14 @@ public class DateDt extends BaseDateTimeDt {
 		retVal.set(Calendar.MONTH, theMonth);
 		retVal.set(Calendar.DATE, theDay);
 		return retVal;
+	}
+
+	@Override
+	public DateDt clone() {
+		try {
+			return (DateDt) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

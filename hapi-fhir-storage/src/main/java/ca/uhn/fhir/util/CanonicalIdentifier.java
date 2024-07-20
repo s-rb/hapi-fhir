@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Version independent identifier
  */
-public class CanonicalIdentifier extends BaseIdentifierDt {
+public class CanonicalIdentifier extends BaseIdentifierDt implements Cloneable {
 	UriDt mySystem;
 	StringDt myValue;
 
@@ -91,5 +91,17 @@ public class CanonicalIdentifier extends BaseIdentifierDt {
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(mySystem).append(myValue).toHashCode();
+	}
+
+	@Override
+	public CanonicalIdentifier clone() {
+		try {
+			CanonicalIdentifier clone = (CanonicalIdentifier) super.clone();
+			clone.mySystem = mySystem.clone();
+			clone.myValue = myValue.clone();
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

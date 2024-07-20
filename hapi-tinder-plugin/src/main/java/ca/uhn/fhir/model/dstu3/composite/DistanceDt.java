@@ -22,4 +22,13 @@ package ca.uhn.fhir.model.dstu3.composite;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 
 @DatatypeDef(name = "DistanceDt")
-public class DistanceDt extends QuantityDt {}
+public class DistanceDt extends QuantityDt implements Cloneable {
+	@Override
+	public DistanceDt clone() {
+		try {
+			return (DistanceDt) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+}

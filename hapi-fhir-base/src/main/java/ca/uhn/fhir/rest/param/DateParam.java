@@ -227,7 +227,7 @@ public class DateParam extends BaseParamWithPrefix<DateParam>
 		return b.build();
 	}
 
-	public static class DateParamDateTimeHolder extends BaseDateTimeDt {
+	public static class DateParamDateTimeHolder extends BaseDateTimeDt implements Cloneable {
 
 		/**
 		 * Constructor
@@ -246,6 +246,15 @@ public class DateParam extends BaseParamWithPrefix<DateParam>
 		@Override
 		protected boolean isPrecisionAllowed(TemporalPrecisionEnum thePrecision) {
 			return true;
+		}
+
+		@Override
+		public DateParamDateTimeHolder clone() {
+			try {
+				return (DateParamDateTimeHolder) super.clone();
+			} catch (CloneNotSupportedException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 }

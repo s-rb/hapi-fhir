@@ -28,7 +28,7 @@ import java.util.List;
  * </p>
  */
 @DatatypeDef(name = "CodingDt")
-public class CodingDt extends BaseCodingDt implements ICompositeDatatype, org.hl7.fhir.instance.model.api.IBaseCoding {
+public class CodingDt extends BaseCodingDt implements ICompositeDatatype, org.hl7.fhir.instance.model.api.IBaseCoding, Cloneable {
 
 	/**
 	 * Constructor
@@ -393,5 +393,20 @@ public class CodingDt extends BaseCodingDt implements ICompositeDatatype, org.hl
 	public CodingDt setUserSelected(boolean theBoolean) {
 		myUserSelected = new BooleanDt(theBoolean);
 		return this;
+	}
+
+	@Override
+	public CodingDt clone() {
+		try {
+			CodingDt clone = (CodingDt) super.clone();
+			clone.myCode = myCode.clone();
+			clone.myDisplay = myDisplay.clone();
+			clone.mySystem = mySystem.clone();
+			clone.myVersion = myVersion.clone();
+			clone.myUserSelected = myUserSelected.clone();
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

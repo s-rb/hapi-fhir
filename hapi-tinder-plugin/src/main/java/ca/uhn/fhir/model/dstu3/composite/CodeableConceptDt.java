@@ -10,6 +10,7 @@ import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.primitive.StringDt;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * HAPI/FHIR <b>CodeableConceptDt</b> Datatype
@@ -26,7 +27,7 @@ import java.util.List;
  * </p>
  */
 @DatatypeDef(name = "CodeableConceptDt")
-public class CodeableConceptDt extends BaseIdentifiableElement implements ICompositeDatatype {
+public class CodeableConceptDt extends BaseIdentifiableElement implements ICompositeDatatype, Cloneable {
 
 	/**
 	 * Constructor
@@ -203,5 +204,12 @@ public class CodeableConceptDt extends BaseIdentifiableElement implements ICompo
 	public CodeableConceptDt setText(String theString) {
 		myText = new StringDt(theString);
 		return this;
+	}
+
+	@Override
+	public CodeableConceptDt clone() {
+		CodeableConceptDt clone = (CodeableConceptDt) super.clone();
+		clone.myCoding = myCoding.stream().map(o -> o.clone()).collect(Collectors.toList());
+		return clone;
 	}
 }
