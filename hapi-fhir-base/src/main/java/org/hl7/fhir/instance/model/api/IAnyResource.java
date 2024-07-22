@@ -25,7 +25,7 @@ import ca.uhn.fhir.rest.gclient.TokenClientParam;
 /**
  * An IBaseResource that has a FHIR version of DSTU3 or higher
  */
-public interface IAnyResource extends IBaseResource {
+public interface IAnyResource extends IBaseResource, Cloneable {
 
 	/**
 	 * Search parameter constant for <b>_id</b>
@@ -54,4 +54,6 @@ public interface IAnyResource extends IBaseResource {
 	IAnyResource setId(String theId);
 
 	void setUserData(String name, Object value);
+
+	IAnyResource clone();
 }

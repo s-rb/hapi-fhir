@@ -23,7 +23,12 @@ import ca.uhn.fhir.model.api.ResourceMetadataKeyEnum;
 
 import java.util.HashMap;
 
-public class ResourceMetadataMap extends HashMap<ResourceMetadataKeyEnum<?>, Object> {
+public class ResourceMetadataMap extends HashMap<ResourceMetadataKeyEnum<?>, Object> implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public ResourceMetadataMap clone() {
+		return (ResourceMetadataMap) super.clone();
+	}
 }

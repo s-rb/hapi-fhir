@@ -37,7 +37,7 @@ import java.util.Set;
  * the second are HAPI's Resource structures, e.g.
  * <code>ca.uhn.fhir.model.dstu.resource.Patient</code>)
  */
-public interface IBaseResource extends IBase, IElement {
+public interface IBaseResource extends IBase, IElement, Cloneable {
 
 	IBaseMetaType getMeta();
 
@@ -65,4 +65,6 @@ public interface IBaseResource extends IBase, IElement {
 	default boolean isDeleted() {
 		return ResourceMetadataKeyEnum.DELETED_AT.get(this) != null;
 	}
+
+	IBaseResource clone();
 }

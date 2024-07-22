@@ -63,7 +63,7 @@ public class CommonResourceSupertypeScannerTest {
   }
   
   @ResourceDef(name = "Patient")
-  private static class DemoPatient implements IBaseResource {
+  private static class DemoPatient implements IBaseResource, Cloneable {
 
     @Override
     public IBaseMetaType getMeta() {
@@ -118,17 +118,48 @@ public class CommonResourceSupertypeScannerTest {
     @Override
     public void setUserData(String theName, Object theValue) {
     }
+
+	  @Override
+	  public DemoPatient clone() {
+		  try {
+			  return (DemoPatient) super.clone();
+		  } catch (CloneNotSupportedException e) {
+			  throw new InternalError(e);
+		  }
+	  }
   }
   
   @ResourceDef(id = "subOne")
-  private static class DemoPatientSub extends DemoPatient {}
+  private static class DemoPatientSub extends DemoPatient implements Cloneable {
+
+	  @Override
+	  public DemoPatientSub clone() {
+		  return (DemoPatientSub) super.clone();
+	  }
+  }
   
   @ResourceDef(id = "subSubOne")
-  private static class DemoPatientSubSub extends DemoPatientSub {}
+  private static class DemoPatientSubSub extends DemoPatientSub implements Cloneable{
+
+	  @Override
+	  public DemoPatientSubSub clone() {
+		  return (DemoPatientSubSub) super.clone();
+	  }
+  }
   
   @ResourceDef(id = "subSubTwo")
-  private static class DemoPatientSubSubTwo extends DemoPatientSub {}
+  private static class DemoPatientSubSubTwo extends DemoPatientSub implements Cloneable {
+	  @Override
+	  public DemoPatientSubSubTwo clone() {
+		  return (DemoPatientSubSubTwo) super.clone();
+	  }
+  }
   
   @ResourceDef(id = "tripleSub")
-  private static class DemoPatientTripleSub extends DemoPatientSubSub {}
+  private static class DemoPatientTripleSub extends DemoPatientSubSub implements Cloneable {
+	  @Override
+	  public DemoPatientTripleSub clone() {
+		  return (DemoPatientTripleSub) super.clone();
+	  }
+  }
 }

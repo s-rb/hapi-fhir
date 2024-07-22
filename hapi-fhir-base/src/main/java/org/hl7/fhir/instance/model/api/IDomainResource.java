@@ -21,9 +21,11 @@ package org.hl7.fhir.instance.model.api;
 
 import java.util.List;
 
-public interface IDomainResource extends IAnyResource, IBaseHasExtensions, IBaseHasModifierExtensions {
+public interface IDomainResource extends IAnyResource, IBaseHasExtensions, IBaseHasModifierExtensions, Cloneable {
 
 	List<? extends IAnyResource> getContained();
 
 	INarrative getText();
+
+	IDomainResource clone();
 }

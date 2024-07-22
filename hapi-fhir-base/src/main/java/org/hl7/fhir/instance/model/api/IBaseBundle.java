@@ -19,7 +19,7 @@
  */
 package org.hl7.fhir.instance.model.api;
 
-public interface IBaseBundle extends IBaseResource {
+public interface IBaseBundle extends IBaseResource, Cloneable {
 
 	/**
 	 * Constant for links provided in the bundle. This constant is used in the
@@ -41,4 +41,6 @@ public interface IBaseBundle extends IBaseResource {
 	 * this bundle.
 	 */
 	String LINK_SELF = "self";
+
+	IBaseBundle clone();
 }

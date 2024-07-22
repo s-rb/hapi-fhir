@@ -28,7 +28,7 @@ import org.hl7.fhir.instance.model.api.IBaseOperationOutcome;
 
 import java.util.List;
 
-public interface BaseOperationOutcome extends IResource, IBaseOperationOutcome {
+public interface BaseOperationOutcome extends IResource, IBaseOperationOutcome, Cloneable {
 
 	public abstract BaseIssue addIssue();
 
@@ -36,7 +36,9 @@ public interface BaseOperationOutcome extends IResource, IBaseOperationOutcome {
 
 	public abstract BaseIssue getIssueFirstRep();
 
-	public abstract static class BaseIssue extends BaseIdentifiableElement implements IResourceBlock {
+	public abstract BaseOperationOutcome clone();
+
+	public abstract static class BaseIssue extends BaseIdentifiableElement implements IResourceBlock, Cloneable {
 
 		private static final long serialVersionUID = 6700020892151450738L;
 
@@ -55,5 +57,10 @@ public interface BaseOperationOutcome extends IResource, IBaseOperationOutcome {
 		public abstract BaseIssue setDiagnostics(String theString);
 
 		public abstract StringDt getLocationFirstRep();
+
+		@Override
+		public BaseIssue clone() {
+			return (BaseIssue) super.clone();
+		}
 	}
 }

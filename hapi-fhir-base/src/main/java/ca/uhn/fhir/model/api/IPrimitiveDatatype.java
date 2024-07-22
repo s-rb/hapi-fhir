@@ -22,7 +22,7 @@ package ca.uhn.fhir.model.api;
 import ca.uhn.fhir.parser.DataFormatException;
 import org.hl7.fhir.instance.model.api.IPrimitiveType;
 
-public interface IPrimitiveDatatype<T> extends IDatatype, IPrimitiveType<T> {
+public interface IPrimitiveDatatype<T> extends IDatatype, IPrimitiveType<T>, Cloneable {
 
 	@Override
 	void setValueAsString(String theValue) throws DataFormatException;
@@ -35,4 +35,7 @@ public interface IPrimitiveDatatype<T> extends IDatatype, IPrimitiveType<T> {
 
 	@Override
 	IPrimitiveType<T> setValue(T theValue) throws DataFormatException;
+
+	@Override
+	IPrimitiveDatatype<T> clone();
 }

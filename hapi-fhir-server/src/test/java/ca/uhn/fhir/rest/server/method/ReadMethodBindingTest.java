@@ -138,7 +138,7 @@ public class ReadMethodBindingTest {
 	}
 
 	@ResourceDef(name = "Patient")
-	private static class MyPatient implements IBaseResource {
+	private static class MyPatient implements IBaseResource, Cloneable {
 
 		@Override
 		public IBaseMetaType getMeta() {
@@ -193,6 +193,11 @@ public class ReadMethodBindingTest {
 		@Override
 		public void setUserData(String theName, Object theValue) {
 
+		}
+
+		@Override
+		public MyPatient clone() {
+			return (MyPatient) super.clone();
 		}
 	}
 

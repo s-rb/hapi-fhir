@@ -25,11 +25,13 @@ import ca.uhn.fhir.model.primitive.StringDt;
 import org.hl7.fhir.instance.model.api.IBaseConformance;
 
 // @ResourceDef(name="Conformance")
-public interface BaseConformance extends IResource, IBaseConformance {
+public interface BaseConformance extends IResource, IBaseConformance, Cloneable {
 
 	public abstract StringDt getDescriptionElement();
 
 	public abstract StringDt getPublisherElement();
 
 	public abstract IdDt getFhirVersionElement();
+
+	public abstract BaseConformance clone();
 }

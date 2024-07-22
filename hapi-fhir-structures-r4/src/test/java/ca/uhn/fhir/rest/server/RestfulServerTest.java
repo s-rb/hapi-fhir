@@ -198,7 +198,7 @@ public class RestfulServerTest {
 	}
 
 	@ResourceDef(name = "MyResource")
-	public static class MyResource implements IBaseResource {
+	public static class MyResource implements IBaseResource, Cloneable {
 
 		@Override
 		public boolean isEmpty() {
@@ -254,10 +254,23 @@ public class RestfulServerTest {
 		public FhirVersionEnum getStructureFhirVersionEnum() {
 			return FhirVersionEnum.R4;
 		}
+
+		@Override
+		public MyResource clone() {
+			try {
+				return (MyResource) super.clone();
+			} catch (CloneNotSupportedException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	@ResourceDef(name = "MyResource2")
-	public static class MyResource2 extends MyResource {
+	public static class MyResource2 extends MyResource implements Cloneable {
+		@Override
+		public MyResource2 clone() {
+			return (MyResource2) super.clone();
+		}
 	}
 
 }

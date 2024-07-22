@@ -48,9 +48,10 @@ import org.hl7.fhir.instance.model.api.IPrimitiveType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
-public abstract class BaseResource extends BaseElement implements IResource {
+public abstract class BaseResource extends BaseElement implements IResource, Cloneable {
 
 	/**
 	 * <b>Fluent Client</b> search parameter constant for <b>_id</b>
@@ -362,5 +363,22 @@ public abstract class BaseResource extends BaseElement implements IResource {
 		ToStringBuilder b = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE);
 		b.append("id", getId().toUnqualified());
 		return b.toString();
+	}
+
+	@Override
+	public BaseResource clone() {
+		BaseResource clone = null;
+		try {
+			clone = (BaseResource) super.clone();
+		} catch (CloneNotSupportedException e) { // todo: do like here everywhere
+			// this shouldn't happen, since we are Cloneable
+			throw new InternalError(e);
+		}
+		clone.myContained = myContained.clone();
+		clone.myId = myId.clone();
+		clone.myLanguage = myLanguage.clone();
+		clone.myText = myText.clone();
+		clone.myResourceMetadata = myResourceMetadata.clone();
+		return clone;
 	}
 }

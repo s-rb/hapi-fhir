@@ -21,7 +21,7 @@ package ca.uhn.fhir.model.api;
 
 import java.io.Serializable;
 
-public interface IValueSetEnumBinder<T extends Enum<?>> extends Serializable { // todo: implement clone
+public interface IValueSetEnumBinder<T extends Enum<?>> extends Serializable, Cloneable { // todo: implement clone
 
 	T fromCodeString(String theCodeString);
 
@@ -30,4 +30,6 @@ public interface IValueSetEnumBinder<T extends Enum<?>> extends Serializable { /
 	String toSystemString(T theEnum);
 
 	T fromCodeString(String theCodeString, String theSystemString);
+
+	IValueSetEnumBinder clone();
 }

@@ -34,7 +34,7 @@ import org.hl7.fhir.instance.model.api.IBaseMetaType;
  * Note that this class is a part of HAPI's model API, used to define structure classes. Users will often interact with this interface, but should not need to implement it directly.
  * </p>
  */
-public interface IResource extends ICompositeElement, org.hl7.fhir.instance.model.api.IBaseResource {
+public interface IResource extends ICompositeElement, org.hl7.fhir.instance.model.api.IBaseResource, Cloneable {
 
 	/**
 	 * Returns the contained resource list for this resource.
@@ -121,4 +121,6 @@ public interface IResource extends ICompositeElement, org.hl7.fhir.instance.mode
 	 *            The map must not be null
 	 */
 	void setResourceMetadata(ResourceMetadataMap theMap);
+
+	IResource clone();
 }

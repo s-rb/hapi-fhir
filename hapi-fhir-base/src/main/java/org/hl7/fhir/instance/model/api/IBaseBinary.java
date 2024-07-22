@@ -19,7 +19,7 @@
  */
 package org.hl7.fhir.instance.model.api;
 
-public interface IBaseBinary extends IBaseResource {
+public interface IBaseBinary extends IBaseResource, Cloneable {
 
 	byte[] getContent();
 
@@ -38,5 +38,6 @@ public interface IBaseBinary extends IBaseResource {
 	default boolean hasData() {
 		return getContent() != null && getContent().length > 0;
 	}
-	;
+
+	IBaseBinary clone();
 }

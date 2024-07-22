@@ -18,7 +18,7 @@ import java.util.List;
  * See #364
  */
 @ResourceDef(name = "CustomResource", profile = "http://hl7.org/fhir/profiles/custom-resource", id = "custom-resource")
-public class CustomResource364Dstu2 extends BaseResource implements IBaseOperationOutcome {
+public class CustomResource364Dstu2 extends BaseResource implements IBaseOperationOutcome, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,6 +51,13 @@ public class CustomResource364Dstu2 extends BaseResource implements IBaseOperati
 
 	public void setBaseValues(IElement theValue) {
 		this.baseValues = theValue;
+	}
+
+	@Override
+	public CustomResource364Dstu2 clone() {
+		CustomResource364Dstu2 clone = (CustomResource364Dstu2) super.clone();
+		clone.baseValues = baseValues.clone();
+		return clone;
 	}
 
 	@DatatypeDef(name="CustomDate")

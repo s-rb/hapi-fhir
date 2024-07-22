@@ -27,7 +27,7 @@ import java.util.List;
  * structure of some kind. It is provided mostly to simplify convergence
  * between the HL7.org structures and the HAPI ones.
  */
-public interface IBase extends Serializable {
+public interface IBase extends Serializable, Cloneable {
 
 	boolean isEmpty();
 
@@ -71,4 +71,6 @@ public interface IBase extends Serializable {
 	 * Sets a user supplied data value in this element
 	 */
 	void setUserData(String theName, Object theValue);
+
+	IBase clone();
 }

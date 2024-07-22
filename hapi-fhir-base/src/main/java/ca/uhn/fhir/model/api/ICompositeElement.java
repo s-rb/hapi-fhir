@@ -21,7 +21,7 @@ package ca.uhn.fhir.model.api;
 
 import java.util.List;
 
-public interface ICompositeElement extends IElement {
+public interface ICompositeElement extends IElement, Cloneable {
 
 	/**
 	 * Returns a list containing all child elements matching a given type
@@ -37,4 +37,6 @@ public interface ICompositeElement extends IElement {
 	 */
 	@Deprecated
 	<T extends IElement> List<T> getAllPopulatedChildElementsOfType(Class<T> theType);
+
+	ICompositeElement clone();
 }
