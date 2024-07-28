@@ -43,6 +43,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.http.client.utils.CloneUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class SearchParameterMap implements Serializable {
+public class SearchParameterMap implements Serializable, Cloneable {
 	public static final Integer INTEGER_0 = 0;
 	private static final org.slf4j.Logger ourLog = org.slf4j.LoggerFactory.getLogger(SearchParameterMap.class);
 	private static final long serialVersionUID = 1L;
@@ -101,40 +102,53 @@ public class SearchParameterMap implements Serializable {
 	}
 
 	/**
-	 * Creates and returns a copy of this map
+	 * Creates and returns a deep copy of this map
 	 */
 	@JsonIgnore
 	@Override
 	public SearchParameterMap clone() {
-		SearchParameterMap map = new SearchParameterMap();
-		map.setSummaryMode(getSummaryMode());
-		map.setSort(getSort());
-		map.setSearchTotalMode(getSearchTotalMode());
-		map.setRevIncludes(getRevIncludes());
-		map.setIncludes(getIncludes());
-		map.setEverythingMode(getEverythingMode());
-		map.setCount(getCount());
-		map.setDeleteExpunge(isDeleteExpunge());
-		map.setLastN(isLastN());
-		map.setLastNMax(getLastNMax());
-		map.setLastUpdated(getLastUpdated());
-		map.setLoadSynchronous(isLoadSynchronous());
-		map.setNearDistanceParam(getNearDistanceParam());
-		map.setLoadSynchronousUpTo(getLoadSynchronousUpTo());
-		map.setOffset(getOffset());
-		map.setSearchContainedMode(getSearchContainedMode());
-
-		for (Map.Entry<String, List<List<IQueryParameterType>>> entry : mySearchParameterMap.entrySet()) {
-			List<List<IQueryParameterType>> andParams = entry.getValue();
-			List<List<IQueryParameterType>> newAndParams = new ArrayList<>();
-			for (List<IQueryParameterType> orParams : andParams) {
-				List<IQueryParameterType> newOrParams = new ArrayList<>(orParams);
-				newAndParams.add(newOrParams);
-			}
-			map.put(entry.getKey(), newAndParams);
+		try {
+			SearchParameterMap clone = (SearchParameterMap) super.clone();
+			clone.mySummaryMode = mySummaryMode;
+			clone.mySort = mySort != null ? mySort.clone() : null;
+			clone.mySearchTotalMode = mySearchTotalMode;
+			clone.myRevIncludes = myRevIncludes != null
+				? myRevIncludes.stream().map(Include::clone).collect(Collectors.toSet())
+				: null;
+			clone.myIncludes = myIncludes != null
+				? myIncludes.stream().map(Include::clone).collect(Collectors.toSet())
+				: null;
+			clone.myEverythingMode = myEverythingMode;
+			clone.myCount = myCount;
+			clone.myDeleteExpunge = myDeleteExpunge;
+			clone.myLastN = myLastN;
+			clone.myLastNMax = myLastNMax;
+			clone.myLastUpdated = myLastUpdated; // todo implement clone()
+			clone.myLoadSynchronous = myLoadSynchronous;
+			clone.myNearDistanceParam = myNearDistanceParam; // todo implement clone()
+			clone.myLoadSynchronousUpTo = myLoadSynchronousUpTo;
+			clone.myOffset = myOffset;
+			clone.mySearchContainedMode = mySearchContainedMode;
+			deepClone(mySearchParameterMap).forEach(clone::put);
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
 		}
+	}
 
-		return map;
+	private HashMap<String, List<List<IQueryParameterType>>> deepClone(
+		HashMap<String, List<List<IQueryParameterType>>> theMap)
+	{
+		HashMap<String, List<List<IQueryParameterType>>> res = new LinkedHashMap<>();
+		for (var entry : theMap.entrySet()) {
+			String key = entry.getKey();
+			List<List<IQueryParameterType>> lists = entry.getValue();
+			List<List<IQueryParameterType>> newLists = new ArrayList<>();
+			// todo implement deep cloning for IQueryParameterType
+			for (var list : lists) newLists.add(new ArrayList<>(list));
+			res.put(key, newLists);
+		}
+		return res;
 	}
 
 	public SummaryEnum getSummaryMode() {

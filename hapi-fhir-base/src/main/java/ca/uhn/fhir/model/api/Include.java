@@ -39,7 +39,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * Note on thread safety: This class is not thread safe.
  * </p>
  */
-public class Include implements Serializable {
+public class Include implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -285,5 +285,10 @@ public class Include implements Serializable {
 		}
 		Include retVal = new Include(b.toString(), myIterate, myImmutable);
 		return retVal;
+	}
+
+	@Override
+	public Include clone() {
+		return new Include(myValue, myIterate, myImmutable);
 	}
 }
